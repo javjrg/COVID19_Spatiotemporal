@@ -174,32 +174,19 @@ Modelo_Edad <- function(Inicio, df_out, Probs, betaE, betaIm, betaI, K_g, C_G_H,
     
     Temp1 <- df_out
  
-    # for(g in 1:3){
-    # 
-    #   Temp1[[g]]$Suceptibles <- ifelse((df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1-df_out[[g]]$PI)*(1 - df_out[[g]]$K_0*CH_i_tc)))>0,df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1-df_out[[g]]$PI)*(1 - df_out[[g]]$K_0*CH_i_tc)),0)
-    #   Temp1[[g]]$Expuestos <- ifelse((df_out[[g]]$Generacion*(((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1 - df_out[[g]]$K_0*CH_i_tc)*df_out[[g]]$PI) + (1 - gammaE)*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)))>0, df_out[[g]]$Generacion*(((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1 - df_out[[g]]$K_0*CH_i_tc)*df_out[[g]]$PI) + (1 - gammaE)*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)),0)
-    #   Temp1[[g]]$Cuarentenados <- ifelse((df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*df_out[[g]]$K_0*CH_i_tc))>0,df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*df_out[[g]]$K_0*CH_i_tc),0)
-    #   Temp1[[g]]$Asintomaticos <- ifelse((df_out[[g]]$Generacion*(((1-phiEI)*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaIm)*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*(((1-phiEI)*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaIm)*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion)),0)
-    #   Temp1[[g]]$Infectados <- ifelse((df_out[[g]]$Generacion*((phiEI*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaI)*(df_out[[g]]$Infectados/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*((phiEI*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaI)*(df_out[[g]]$Infectados/df_out[[g]]$Generacion)),0)
-    #   Temp1[[g]]$Recuperados <-  ifelse((df_out[[g]]$Generacion*(phiIR*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + phiHR*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + gammaIm*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion) + (1 - phiHcD)*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Recuperados/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*(phiIR*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + phiHR*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + gammaIm*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion) + (1 - phiHcD)*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Recuperados/df_out[[g]]$Generacion)),0)
-    #   Temp1[[g]]$Hospitalizados <- ifelse((df_out[[g]]$Generacion*((1-phiIR)*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + (1-gammaH)*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*((1-phiIR)*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + (1-gammaH)*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion)),0)
-    #   Temp1[[g]]$UCI <-  ifelse((df_out[[g]]$Generacion*((1-phiHR-phiHD)*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + (1 - gammaHc)*(df_out[[g]]$UCI/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*((1-phiHR-phiHD)*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + (1 - gammaHc)*(df_out[[g]]$UCI/df_out[[g]]$Generacion)),0)
-    #   Temp1[[g]]$Muerto <-  ifelse((df_out[[g]]$Generacion*(phiHD*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + phiHcD*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Muerto/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*(phiHD*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + phiHcD*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Muerto/df_out[[g]]$Generacion)),0)
-    # }
+     for(g in 1:3){
+     
+       Temp1[[g]]$Suceptibles <- ifelse((df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1-df_out[[g]]$PI)*(1 - df_out[[g]]$K_0*CH_i_tc)))>0,df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1-df_out[[g]]$PI)*(1 - df_out[[g]]$K_0*CH_i_tc)),0)
+       Temp1[[g]]$Expuestos <- ifelse((df_out[[g]]$Generacion*(((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1 - df_out[[g]]$K_0*CH_i_tc)*df_out[[g]]$PI) + (1 - gammaE)*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)))>0, df_out[[g]]$Generacion*(((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1 - df_out[[g]]$K_0*CH_i_tc)*df_out[[g]]$PI) + (1 - gammaE)*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)),0)
+       Temp1[[g]]$Cuarentenados <- ifelse((df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*df_out[[g]]$K_0*CH_i_tc))>0,df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*df_out[[g]]$K_0*CH_i_tc),0)
+       Temp1[[g]]$Asintomaticos <- ifelse((df_out[[g]]$Generacion*(((1-phiEI)*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaIm)*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*(((1-phiEI)*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaIm)*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion)),0)
+       Temp1[[g]]$Infectados <- ifelse((df_out[[g]]$Generacion*((phiEI*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaI)*(df_out[[g]]$Infectados/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*((phiEI*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaI)*(df_out[[g]]$Infectados/df_out[[g]]$Generacion)),0)
+       Temp1[[g]]$Recuperados <-  ifelse((df_out[[g]]$Generacion*(phiIR*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + phiHR*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + gammaIm*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion) + (1 - phiHcD)*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Recuperados/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*(phiIR*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + phiHR*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + gammaIm*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion) + (1 - phiHcD)*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Recuperados/df_out[[g]]$Generacion)),0)
+       Temp1[[g]]$Hospitalizados <- ifelse((df_out[[g]]$Generacion*((1-phiIR)*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + (1-gammaH)*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*((1-phiIR)*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + (1-gammaH)*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion)),0)
+       Temp1[[g]]$UCI <-  ifelse((df_out[[g]]$Generacion*((1-phiHR-phiHD)*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + (1 - gammaHc)*(df_out[[g]]$UCI/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*((1-phiHR-phiHD)*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + (1 - gammaHc)*(df_out[[g]]$UCI/df_out[[g]]$Generacion)),0)
+       Temp1[[g]]$Muerto <-  ifelse((df_out[[g]]$Generacion*(phiHD*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + phiHcD*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Muerto/df_out[[g]]$Generacion)))>0,df_out[[g]]$Generacion*(phiHD*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + phiHcD*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Muerto/df_out[[g]]$Generacion)),0)
+     }
     
-    
-    for(g in 1:3){
-
-      Temp1[[g]]$Suceptibles <- df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1-df_out[[g]]$PI)*(1 - df_out[[g]]$K_0*CH_i_tc))
-      Temp1[[g]]$Expuestos <- df_out[[g]]$Generacion*(((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*(1 - df_out[[g]]$K_0*CH_i_tc)*df_out[[g]]$PI) + (1 - gammaE)*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion))
-      Temp1[[g]]$Cuarentenados <- df_out[[g]]$Generacion*((df_out[[g]]$Suceptibles/df_out[[g]]$Generacion)*df_out[[g]]$K_0*CH_i_tc)
-      Temp1[[g]]$Asintomaticos <- df_out[[g]]$Generacion*(((1-phiEI)*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaIm)*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion))
-      Temp1[[g]]$Infectados <- df_out[[g]]$Generacion*((phiEI*gammaE*(df_out[[g]]$Expuestos/df_out[[g]]$Generacion)) + (1 - gammaI)*(df_out[[g]]$Infectados/df_out[[g]]$Generacion))
-      Temp1[[g]]$Recuperados <-  df_out[[g]]$Generacion*(phiIR*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + phiHR*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + gammaIm*(df_out[[g]]$Asintomaticos/df_out[[g]]$Generacion) + (1 - phiHcD)*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Recuperados/df_out[[g]]$Generacion))
-      Temp1[[g]]$Hospitalizados <- df_out[[g]]$Generacion*((1-phiIR)*gammaI*(df_out[[g]]$Infectados/df_out[[g]]$Generacion) + (1-gammaH)*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion))
-      Temp1[[g]]$UCI <-  df_out[[g]]$Generacion*((1-phiHR-phiHD)*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + (1 - gammaHc)*(df_out[[g]]$UCI/df_out[[g]]$Generacion))
-      Temp1[[g]]$Muerto <-  df_out[[g]]$Generacion*(phiHD*gammaH*(df_out[[g]]$Hospitalizados/df_out[[g]]$Generacion) + phiHcD*gammaHc*(df_out[[g]]$UCI/df_out[[g]]$Generacion) + (df_out[[g]]$Muerto/df_out[[g]]$Generacion))
-    }
     
     df_out <- Temp1
     
@@ -239,6 +226,3 @@ Modelo_Edad <- function(Inicio, df_out, Probs, betaE, betaIm, betaI, K_g, C_G_H,
   Results <- bind_rows(Results) %>% mutate(Fecha = Inicio + (Time-1))   %>% mutate(Cuarentena = case_when(K_0 > 0~ "Cuarentena", K_0 == 0~ " Sin cuarentena"))
   return(list(Results = Results, Starting = df_out))
 }
-
-
-
